@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Liste des Emprunts</h1>
+<a href="{% url 'ajouter_emprunt' %}" class="btn btn-success mb-3">Ajouter un Emprunt</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Utilisateur</th>
+            <th>Livre</th>
+            <th>Date d'Emprunt</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for emprunt in emprunts %}
+        <tr>
+            <td>{{ emprunt.utilisateur.username }}</td>
+            <td>{{ emprunt.livre.titre }}</td>
+            <td>{{ emprunt.date_emprunt }}</td>
+            <td>
+                <a href="{% url 'retourner_emprunt_admin' emprunt.pk %}" class="btn btn-info btn-sm">Retourner</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

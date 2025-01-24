@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Ajouter une Catégorie</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="nom">Nom de la Catégorie</label>
+        <input type="text" name="nom" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Modifier un Livre</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="titre">Titre</label>
+        <input type="text" name="titre" class="form-control" value="{{ livre.titre }}" required>
+    </div>
+    <div class="form-group">
+        <label for="auteur">Auteur</label>
+        <input type="text" name="auteur" class="form-control" value="{{ livre.auteur }}" required>
+    </div>
+    <div class="form-group">
+        <label for="genre">Catégorie</label>
+        <select name="genre" class="form-control" required>
+            {% for categorie in categories %}
+            <option value="{{ categorie.id }}" {% if livre.genre.id == categorie.id %}selected{% endif %}>
+                {{ categorie.nom }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="annee_publication">Année de Publication</label>
+        <input type="number" name="annee_publication" class="form-control" value="{{ livre.annee_publication }}" required>
+    </div>
+    <div class="form-group">
+        <label for="exemplaires_disponibles">Exemplaires Disponibles</label>
+        <input type="number" name="exemplaires_disponibles" class="form-control" value="{{ livre.exemplaires_disponibles }}" required>
+    </div>
+    <button type="submit" class="btn btn-warning">Mettre à jour</button>
+</form>
+{% endblock %}

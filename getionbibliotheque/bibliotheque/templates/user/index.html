@@ -1,0 +1,51 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-4">Bienvenue à la Bibliothèque</h1>
+
+    <div class="row">
+        <!-- Colonne de gauche : Paragraphe -->
+        <div class="col-md-6">
+            <h2>À propos de la Bibliothèque</h2>
+            <p>
+                Bienvenue dans notre bibliothèque en ligne où vous pouvez explorer un vaste éventail de livres 
+                classés par catégories. Notre mission est de faciliter l'accès à la lecture et à la culture pour tous. 
+                Parcourez nos collections et découvrez votre prochaine lecture favorite !
+            </p>
+        </div>
+
+        <!-- Colonne de droite : Image -->
+        <div class="col-md-6 text-center">
+            {% load static %}
+            <img src="{% static 'img/test.jpg' %}" class="img-fluid rounded shadow" alt="Image de bibliothèque">
+            
+        </div>
+    </div>
+
+    <!-- Section des catégories -->
+    <div class="row my-5">
+        <h2 class="text-center w-100 mb-4">Découvrez nos catégories</h2>
+        {% for categorie in categories %}
+            <div class="col-md-3 text-center mb-3">
+                <a href="{% url 'liste_livres_user' %}?categorie={{ categorie.id }}" 
+                   class="btn btn-primary w-100 py-3 animate-category">
+                    {{ categorie.nom }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* Animation pour les boutons */
+    .animate-category {
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .animate-category:hover {
+        transform: scale(1.1);
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}

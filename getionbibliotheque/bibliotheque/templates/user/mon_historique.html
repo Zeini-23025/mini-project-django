@@ -1,0 +1,21 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+    <h1 class="text-center">Mon Historique d'Emprunts</h1>
+
+    <div class="row">
+        {% for historique in historique %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ historique.livre.titre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ historique.livre.titre }}</h5>
+                        <p class="card-text">{{ historique.livre.auteur }}</p>
+                        <p class="card-text"><strong>Emprunté le:</strong> {{ historique.date_emprunt }}</p>
+                        <p class="card-text"><strong>Retour le:</strong> {{ historique.date_retour }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+    <h1 class="text-center">Mes Livres Empruntés</h1>
+
+    <div class="row">
+        {% for emprunt in emprunts %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ emprunt.livre.titre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ emprunt.livre.titre }}</h5>
+                        <p class="card-text">{{ emprunt.livre.auteur }}</p>
+                        <p class="card-text"><strong>Emprunté le:</strong> {{ emprunt.date_emprunt }}</p>
+                        {% if emprunt.utilisateur == request.user %}
+                        <form method="POST" action="{% url 'retourner_emprunt_user' emprunt.id %}">
+                            {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Retourner le livre</button>
+                         </form>
+{% endif %}
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

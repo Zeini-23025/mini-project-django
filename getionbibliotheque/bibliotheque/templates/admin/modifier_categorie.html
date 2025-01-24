@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Modifier une Catégorie</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="nom">Nom de la Catégorie</label>
+        <input type="text" name="nom" class="form-control" value="{{ categorie.nom }}" required>
+    </div>
+    <button type="submit" class="btn btn-warning">Mettre à jour</button>
+</form>
+{% endblock %}

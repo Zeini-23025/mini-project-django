@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Ajouter un Emprunt</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="utilisateur">Utilisateur</label>
+        <select name="utilisateur" class="form-control" required>
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="livre">Livre</label>
+        <select name="livre" class="form-control" required>
+            {% for livre in livres %}
+            <option value="{{ livre.id }}">{{ livre.titre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Emprunter</button>
+</form>
+{% if error %}
+    <div class="alert alert-danger mt-3">{{ error }}</div>
+{% endif %}
+{% endblock %}

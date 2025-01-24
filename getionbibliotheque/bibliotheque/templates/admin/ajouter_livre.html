@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Ajouter un Livre</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="titre">Titre</label>
+        <input type="text" name="titre" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="auteur">Auteur</label>
+        <input type="text" name="auteur" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="genre">Catégorie</label>
+        <select name="genre" class="form-control" required>
+            {% for categorie in categories %}
+            <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="annee_publication">Année de Publication</label>
+        <input type="number" name="annee_publication" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="exemplaires_disponibles">Exemplaires Disponibles</label>
+        <input type="number" name="exemplaires_disponibles" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+{% endblock %}

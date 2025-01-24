@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Tableau de bord - Admin{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">Tableau de bord de l'Admin</h2>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-header">Livres Disponibles</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ nombre_livres }}</h5>
+                    <p class="card-text">Nombre total de livres dans la bibliothèque.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-header">Livres Empruntés</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ livres_empruntes }}</h5>
+                    <p class="card-text">Nombre de livres actuellement empruntés.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-header">Catégories</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ nombre_categories }}</h5>
+                    <p class="card-text">Nombre total de catégories de livres.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-header">Utilisateurs</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ nombre_utilisateurs }}</h5>
+                    <p class="card-text">Nombre total d'utilisateurs enregistrés.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'logout' %}" class="btn btn-danger">Déconnexion</a>
+    </div>
+{% endblock %}

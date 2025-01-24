@@ -1,0 +1,50 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+    <h1 class="text-center my-4">Liste des Livres</h1>
+
+    <div class="row">
+        {% for livre in livres %}
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="card mb-4 shadow-lg border-0 h-100 transition-transform" style="border-radius: 15px;">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ livre.titre }}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary fw-bold">{{ livre.titre }}</h5>
+                        <p class="card-text text-muted"><em>{{ livre.auteur }}</em></p>
+                        <p class="card-text">
+                            <strong>Exemplaires disponibles:</strong>
+                            <span class="{% if livre.exemplaires_disponibles > 0 %}text-success{% else %}text-danger{% endif %}">
+                                {{ livre.exemplaires_disponibles }}
+                            </span>
+                        </p>
+                        
+                        <!-- Formulaire d'emprunt -->
+                        {% if livre.exemplaires_disponibles > 0 %}
+                            <form method="POST" action="{% url 'emprunter_livre' livre.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success shadow-sm">
+                                    Emprunter
+                                </button>
+                            </form>
+                        {% else %}
+                            <button class="btn btn-secondary shadow-sm" disabled>
+                                Indisponible
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Ajout de styles supplémentaires -->
+    <style>
+        .transition-transform:hover {
+            transform: scale(1.05); /* Zoom effet au survol */
+            transition: transform 0.3s ease-in-out; /* Animation douce */
+        }
+        .card {
+            background: linear-gradient(to top right, #f8f9fa, #ffffff); /* Gradient léger */
+        }
+    </style>
+{% endblock %}
