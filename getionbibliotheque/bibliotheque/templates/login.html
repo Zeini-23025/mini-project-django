@@ -23,7 +23,7 @@
                 <form method="POST" action="{% url 'login' %}" id="login-form">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="username" class="form-label">Nom d'utilisateur ou Email</label>
+                        <label for="username" class="form-label">Nom d'utilisateur </label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="mb-3">
