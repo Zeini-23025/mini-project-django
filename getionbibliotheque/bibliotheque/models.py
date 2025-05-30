@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Modèle pour les catégories
+
+
 class Categorie(models.Model):
     nom = models.CharField(max_length=100)
 
@@ -9,10 +11,16 @@ class Categorie(models.Model):
         return self.nom
 
 # Modèle pour les livres
+
+
 class Livre(models.Model):
     titre = models.CharField(max_length=200)
     auteur = models.CharField(max_length=200)
-    genre = models.ForeignKey(Categorie, on_delete=models.SET_NULL, null=True, related_name='livres')
+    genre = models.ForeignKey(
+        Categorie, on_delete=models.SET_NULL,
+        null=True,
+        related_name='livres'
+        )
     annee_publication = models.PositiveIntegerField()
     exemplaires_disponibles = models.PositiveIntegerField()
 
@@ -20,9 +28,17 @@ class Livre(models.Model):
         return self.titre
 
 # Modèle pour les emprunts
+
+
 class Emprunt(models.Model):
-    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE, related_name='emprunts')
-    livre = models.ForeignKey(Livre, on_delete=models.CASCADE, related_name='emprunts')
+    utilisateur = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='emprunts'
+        )
+    livre = models.ForeignKey(
+        Livre, on_delete=models.CASCADE,
+        related_name='emprunts'
+        )
     date_emprunt = models.DateField(auto_now_add=True)
     date_retour = models.DateField(null=True, blank=True)
     retourne = models.BooleanField(default=False)
@@ -31,9 +47,17 @@ class Emprunt(models.Model):
         return f"{self.utilisateur.username} - {self.livre.titre}"
 
 # Modèle pour l'historique
+
+
 class Historique(models.Model):
-    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE, related_name='historique')
-    livre = models.ForeignKey(Livre, on_delete=models.CASCADE, related_name='historique')
+    utilisateur = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='historique'
+        )
+    livre = models.ForeignKey(
+        Livre, on_delete=models.CASCADE,
+        related_name='historique'
+        )
     date_emprunt = models.DateField()
     date_retour = models.DateField()
 

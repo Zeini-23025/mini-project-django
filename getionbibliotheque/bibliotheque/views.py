@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 
 # Décorateur personnalisé pour vérifier que l'utilisateur est un administrateur
+
 def admin_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -161,14 +162,15 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            # Authentifier l'utilisateur
             user = form.get_user()
             login(request, user)
-            # Rediriger l'utilisateur vers la page d'accueil de l'admin
-            return redirect('admin_home')
+            if user.is_superuser:
+                return redirect('admin_home')
+            else:
+                return redirect('user_home')
     else:
         form = AuthenticationForm()
-
+    
     return render(request, 'login.html', {'form': form})
 
 # Vue de la page de logout
@@ -226,20 +228,23 @@ def mon_historique(request):
     historique = Emprunt.objects.filter(utilisateur=request.user)  # Historique des emprunts de l'utilisateur
     return render(request, 'user/mon_historique.html', {'historique': historique})
 
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
 
-# Vue pour l'inscription des utilisateurs
+# views.py
+from django.shortcuts import render, redirect
+from .forms import CustomUserCreationForm
+
 def signup_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Rediriger vers la page de login après l'inscription
+            return redirect('login')  # Assure-toi que tu as bien une URL nommée 'login'
     else:
-        form = UserCreationForm()
-
+        form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+
+
 @login_required
 def emprunter_livre(request, livre_id):
     livre = get_object_or_404(Livre, id=livre_id)
