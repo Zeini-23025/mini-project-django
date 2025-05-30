@@ -58,8 +58,8 @@ getionbibliotheque/
 
 ### 1. Cloner le projet
 ```bash
-git clone https://github.com/ton-utilisateur/bibliotheque.git
-cd bibliotheque
+git clone https://github.com/Zeini-23025/mini-project-django.git
+cd mini-project-django
 ```
 
 ### 2. Créer un environnement virtuel
@@ -75,12 +75,12 @@ pip install -r requirements.txt
 
 > Si `requirements.txt` n'existe pas, installe manuellement :
 ```bash
-pip install django
+pip install django django-widget-tweaks
 ```
 
 ### 4. Appliquer les migrations
 ```bash
-python manage.py migrate django-widget-tweaks
+python manage.py migrate 
 ```
 
 ### 5. Créer un superutilisateur
